@@ -1,7 +1,7 @@
 // Make a hook called as useWindowSize that tracks the dimensions of the browser window.
 //Article link :- https://www.geeksforgeeks.org/how-to-detect-when-the-window-size-is-resized-using-javascript/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function useWindowSize() {
     const [size, setSize] = useState({
@@ -10,6 +10,7 @@ function useWindowSize() {
     })
 
 
+   useEffect(()=>{
     window.onload = function () {
         setSize(
             {
@@ -27,6 +28,7 @@ function useWindowSize() {
             }
         )
     }
+   },[])
 
     return [size.height, size.width]
 }

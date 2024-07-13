@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import usePrevious from "./hooks/usePrevious";
 import useWindowSize from "./hooks/useWindowSize";
 import useLocalStorage from "./hooks/useLocalStorage";
+import useGeoLocation from "./hooks/useGeoLocation";
 
 // Article link :- https://www.joshwcomeau.com/react/why-react-re-renders/
 /*
@@ -23,7 +24,7 @@ it'll take 1 photo and give you 5 copies of it. The photographer will only snap 
 function App() {
   const [count, setCount] = useState(0);
   const prev = usePrevious(count);
-  console.log('prev', prev);
+ // console.log('prev', prev);
 
   function handleIncrement() {
     setCount(count + 1);
@@ -33,13 +34,19 @@ function App() {
     setCount(count - 1);
   }
 
-
+/* 
   const [height, width] = useWindowSize();
   console.log('height', height);
-  console.log('width', width);
+  console.log('width', width); */
 
 
   const [set, storedValue, remove] = useLocalStorage('key');
+
+  const position = useGeoLocation()
+ useEffect(()=>{
+  console.log(position);
+ },[position])
+  
 
   return (
     <>
@@ -49,11 +56,13 @@ function App() {
       <div>
         current count  :- {count}
       </div>
+      <div>Latitude :- {position.latitude}</div>
+      <div>Longitude :- {position.longitude}</div>
       {storedValue}
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
-      <button onClick={() => set(count)}>Set item</button>
-      <button onClick={() => remove()}>remove item</button>
+ {/*      <button onClick={() => set(count)}>Set item</button>
+      <button onClick={() => remove()}>remove item</button> */}
     </>
   )
 }
