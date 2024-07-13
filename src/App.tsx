@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import usePrevious from "./hooks/usePrevious";
 import useWindowSize from "./hooks/useWindowSize";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 // Article link :- https://www.joshwcomeau.com/react/why-react-re-renders/
 /*
@@ -33,10 +34,12 @@ function App() {
   }
 
 
-  const[height , width] = useWindowSize();
-  console.log('height',height);
-  console.log('width',width);
-  
+  const [height, width] = useWindowSize();
+  console.log('height', height);
+  console.log('width', width);
+
+
+  const [set, storedValue, remove] = useLocalStorage('key');
 
   return (
     <>
@@ -46,8 +49,11 @@ function App() {
       <div>
         current count  :- {count}
       </div>
+      {storedValue}
       <button onClick={handleIncrement}>Increment</button>
       <button onClick={handleDecrement}>Decrement</button>
+      <button onClick={() => set(count)}>Set item</button>
+      <button onClick={() => remove()}>remove item</button>
     </>
   )
 }
