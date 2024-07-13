@@ -1,5 +1,6 @@
 import { useState } from "react"
 import usePrevious from "./hooks/usePrevious";
+import useWindowSize from "./hooks/useWindowSize";
 
 // Article link :- https://www.joshwcomeau.com/react/why-react-re-renders/
 /*
@@ -30,6 +31,12 @@ function App() {
   function handleDecrement() {
     setCount(count - 1);
   }
+
+
+  const[height , width] = useWindowSize();
+  console.log('height',height);
+  console.log('width',width);
+  
 
   return (
     <>
